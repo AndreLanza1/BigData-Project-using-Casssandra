@@ -1,0 +1,55 @@
+version: '3.8'
+
+networks:
+  cassandra-net:
+    driver: bridge
+
+services:
+  cassandra-node1:
+    image: cassandra:3.11
+    container_name: cassandra-node1
+    networks:
+      - cassandra-net
+    ports:
+      - "9042:9042"
+    environment:
+      - CASSANDRA_CLUSTER_NAME=Iot_cluster
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=128M
+
+  cassandra-node2:
+    image: cassandra:3.11
+    container_name: cassandra-node2
+    networks:
+      - cassandra-net
+    environment:
+      - CASSANDRA_CLUSTER_NAME=Iot_cluster
+      - CASSANDRA_SEEDS=cassandra-node1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=128M
+
+  cassandra-node3:
+    image: cassandra:3.11
+    container_name: cassandra-node3
+    networks:
+      - cassandra-net
+    environment:
+      - CASSANDRA_CLUSTER_NAME=Iot_cluster
+      - CASSANDRA_SEEDS=cassandra-node1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=128M
+
+  cassandra-node4:
+    image: cassandra:3.11
+    container_name: cassandra-node4
+    networks:
+      - cassandra-net
+    environment:
+      - CASSANDRA_CLUSTER_NAME=Iot_cluster
+      - CASSANDRA_SEEDS=cassandra-node1
+      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
+      - MAX_HEAP_SIZE=512M
+      - HEAP_NEWSIZE=128M
